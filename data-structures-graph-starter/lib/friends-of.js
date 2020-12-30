@@ -31,18 +31,48 @@
  */
 
 function friendsOfRecursion(name, adjacencyList, visited, maxDistance, currentDistance) {
-  throw new Error('Replace this error with your implementation.');
+    if (maxDistance < currentDistance) return;
+    visited.add(name)
+    adjacencyList[name].forEach((friend) => friendsOfRecursion(friend, adjacencyList, visited, maxDistance, currentDistance + 1))
+        // check if the current distance is greater than max distance, returns early
+        // adds target(name) to visited list
+        // loop through that persons friends and add them to visited 
+
 }
 
 function friendsOf(adjacencyList, name, distance) {
-  throw new Error('Replace this error with your implementation.');
+    if (!adjacencyList[name]) return undefined
+
+    // if (adjacencyList[name] && distance < 20) return []
+    // if (adjacencyList[name] && distance < 40) return []
+    // if (adjacencyList[name] && distance < 60) return []
+    // if (adjacencyList[name] && distance < 80) return []
+    // if (adjacencyList[name] && distance < 100) return []
+
+    // if (adjacencyList[name].includes(name) && distance > 100) return []
+
+    // for (let friend in adjacencyList) {
+    //     if (adjacencyList[name] === friend && adjacencyList[friend] === name) {
+    //         return friend
+    //     }
+    // }
+
+    // let friends = adjacencyList[name]
+
+    let visited = new Set()
+
+    friendsOfRecursion(name, adjacencyList, visited, distance, 0)
+    visited.delete(name)
+
+    return Array.from(visited)
+        //return the visited list via Array.from()
 }
 
 /******************************************************************************
-* Do not change code beneath this line.
-*/
+ * Do not change code beneath this line.
+ */
 try {
-exports.friendsOf = friendsOf;
+    exports.friendsOf = friendsOf;
 } catch (e) {
-exports.friendsOf = () => { throw new Error('Cannot export friendsOf.') };
+    exports.friendsOf = () => { throw new Error('Cannot export friendsOf.') };
 }
